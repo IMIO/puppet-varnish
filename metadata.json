@@ -18,7 +18,7 @@
     },
     {
       "name": "puppetlabs/apt",
-      "version_requirement": ">= 2.0.0 < 5.0.0"
+      "version_requirement": ">= 2.0.0 < 8.0.0"
     },
     {
       "name": "puppetlabs/stdlib",
@@ -75,7 +75,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.7.1 < 6.0.0"
+      "version_requirement": ">= 4.7.1 < 7.0.0"
     }
   ],
   "description": "Install and configure Varnish Cache",
