@@ -1,0 +1,9 @@
+backend <%= @name %> {.host = "<%= @host %>";.port = "<%= @port %>";.first_byte_timeout = <%= @first_byte_timeout %>;.probe = {.request =
+<% if @python3 -%>
+  "GET /ok HTTP/1.0"
+<% else -%>
+  "OPTIONS / HTTP/1.0"
+<% end -%>
+  "Host: localhost"
+  "Connection: close"
+  "User-Agent: Varnish Health Probe";.interval = <%=@probe['interval']%>;.timeout = <%=@probe['timeout']%>;.window = <%=@probe['window']%>;.threshold = <%=@probe['threshold']%>;}}

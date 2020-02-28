@@ -29,6 +29,25 @@ class varnish::config {
     content => template('varnish/sysconfig.erb'),
   }
 
+  file {
+    '/etc/varnish/sites':
+      ensure  => 'directory',
+      require => Package[$::varnish::package_name],
+  }
+
+  concat {'/etc/varnish/backends.vcl':
+    owner   => root,
+    group   => root,
+    notify  => Service[$::varnish::service_name],
+    require => Package[$::varnish::package_name],
+  }
+
+  concat {'/etc/varnish/sites.vcl':
+    owner   => root,
+    group   => root,
+    notify  => Service[$::varnish::service_name],
+    require => Package[$::varnish::package_name],
+  }
 
   if $::varnish::params::service_provider == 'systemd' {
 

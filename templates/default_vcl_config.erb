@@ -1,0 +1,10 @@
+sub vcl_recv {
+  if (req.http.X-Forwarded-Host ~ "^<%= @name %>") {
+    set req.backend_hint = <%= @backend %>;
+  }
+<% @alias_list.each do |val| -%>
+  elsif (req.http.X-Forwarded-Host ~ "^<%= val %>") {
+    set req.backend_hint = <%= @backend %>;
+  }
+<% end -%>
+}
