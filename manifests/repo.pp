@@ -116,6 +116,7 @@ class varnish::repo {
           'src' => true,
         },
       }
+
     }
 
     default: {

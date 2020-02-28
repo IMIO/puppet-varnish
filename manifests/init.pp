@@ -64,6 +64,7 @@ class varnish (
   String $service_name                      = 'varnish',
   Optional[String] $vcl_reload_cmd          = undef,
   String $vcl_reload_path                   = $::path,
+  Array[String] $modules                    = [],
 ) {
 
   if $package_ensure == 'present' {
