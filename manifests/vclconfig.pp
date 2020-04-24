@@ -22,8 +22,13 @@ define varnish::vclconfig ($backend, $vcl_config='default', $ensure='present',
     else {
       $alias_list = $aliases
     }
-    $backend_config = puppetdb_query("resources{type='Varnish::Backend' and title='${backend}'}")[0]
     if $::environment == 'production' {
+      $backend_filter = "resources{type='Varnish::Backend' and title='${backend}' and environment='production'}"
+    } else {
+      $backend_filter = "resources{type='Varnish::Backend' and title='${backend}' and (environment='staging' or environment='varnish6')}"
+    }
+    $backend_config = puppetdb_query($backend_filter)[0]
+    if $backend_config['environment'] == 'production' {
       $frontend_dns = 'frontend.imio.be'
     } else {
       $frontend_dns = 'frontend-staging.imio.be'
