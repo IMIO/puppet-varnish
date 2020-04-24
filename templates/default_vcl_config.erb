@@ -1,10 +1,10 @@
 sub vcl_recv {
   if (req.http.X-Forwarded-Host ~ "^<%= @name %>") {
-    set req.backend_hint = <%= @backend %>;
+    set req.backend_hint = <%= @ddir %>.backend("<%= @frontend_dns %>", <%= @backend_config['parameters']['port'] %> );
   }
 <% @alias_list.each do |val| -%>
   elsif (req.http.X-Forwarded-Host ~ "^<%= val %>") {
-    set req.backend_hint = <%= @backend %>;
+    set req.backend_hint = <%= @ddir %>.backend("<%= @frontend_dns %>", <%= @backend_config['parameters']['port'] %> );
   }
 <% end -%>
 }

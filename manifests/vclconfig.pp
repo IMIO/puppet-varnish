@@ -22,6 +22,17 @@ define varnish::vclconfig ($backend, $vcl_config='default', $ensure='present',
     else {
       $alias_list = $aliases
     }
+    $backend_config = puppetdb_query("resources{type='Varnish::Backend' and title='${backend}'}")[0]
+    if $::environment == 'production' {
+      $frontend_dns = 'frontend.imio.be'
+    } else {
+      $frontend_dns = 'frontend-staging.imio.be'
+    }
+    if $backend_config['parameters']['python3'] {
+      $ddir = 'plone5_ddir'
+    } else {
+      $ddir = 'plone4_ddir'
+    }
 
     file {
         "/etc/varnish/sites/${name}.vcl":
