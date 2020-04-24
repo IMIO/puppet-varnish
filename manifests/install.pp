@@ -8,19 +8,19 @@ class varnish::install {
     }
   }
 
-  package { $::varnish::package_name:
-    ensure  => $::varnish::package_ensure,
-  }
-
   if !empty($::varnish::modules) {
     package {
       $::varnish::modules:
         ensure  => 'present',
         require => [
           $::varnish::repo::package_require,
-          Apt::Source['uplex-varnish']
         ],
     }
   }
+
+  package { $::varnish::package_name:
+    ensure  => $::varnish::package_ensure,
+  }
+
 
 }
