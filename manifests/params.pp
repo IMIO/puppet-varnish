@@ -44,6 +44,7 @@ class varnish::params {
         $vcl_reload = $::varnish::version_full ? {
           '6.1' => '/usr/share/varnish/varnishreload',
           '6.3' => '/usr/sbin/varnishreload',
+          '6.5' => '/usr/sbin/varnishreload',
         }
       }
       else{
