@@ -25,7 +25,10 @@ define varnish::vclconfig ($backend, $vcl_config='default', $ensure='present',
     if $::environment == 'production' {
       $backend_filter = "resources{type='Varnish::Backend' and title='${::environment}-${backend}' and environment='production'}"
     } else {
-      $backend_filter = "resources{type='Varnish::Backend' and title='${::environment}-${backend}' and (environment='staging' or environment='varnish6')}"
+      $backend_filter = "resources{type='Varnish::Backend' and (         \
+        (title='staging-${backend}' and (environment='staging'))           \
+        or (title='production-${backend}' and (environment='production'))  \
+        )}"
     }
     $backend_config = puppetdb_query($backend_filter)[0]
     if ($backend_config == undef) {
