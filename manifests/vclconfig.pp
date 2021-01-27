@@ -28,6 +28,9 @@ define varnish::vclconfig ($backend, $vcl_config='default', $ensure='present',
       $backend_filter = "resources{type='Varnish::Backend' and title='${::environment}-${backend}' and (environment='staging' or environment='varnish6')}"
     }
     $backend_config = puppetdb_query($backend_filter)[0]
+    if ($backend_config == undef) {
+      fail("Cannot find exported resource for varnish backend ${::environment}-${backend}")
+    }
     if $backend_config['environment'] == 'production' {
       $frontend_dns = 'frontend.imio.be'
     } else {
