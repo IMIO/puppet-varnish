@@ -35,9 +35,9 @@ define varnish::vclconfig ($backend, $vcl_config='default', $ensure='present',
       fail("Cannot find exported resource for varnish backend ${::environment}-${backend}")
     }
     if $backend_config['environment'] == 'production' {
-      $frontend_dns = 'frontend.imio.be'
+      $frontend_dns = 'frontend.prod.imio.be'
     } else {
-      $frontend_dns = 'frontend-staging.imio.be'
+      $frontend_dns = 'frontend.staging.imio.be'
     }
     if $backend_config['parameters']['python3'] {
       $ddir = 'plone5_ddir'
