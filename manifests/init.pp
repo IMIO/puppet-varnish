@@ -49,7 +49,7 @@ class varnish (
   Integer $listen_port                      = 6081,
   Optional[String] $secret                  = undef,
   Stdlib::AbsolutePath $secret_file         = '/etc/varnish/secret',
-  Stdlib::AbsolutePath $vcl_conf            = '/etc/varnish/default.vcl',
+  Variant[String,Stdlib::AbsolutePath] $vcl_conf = '/etc/varnish/default.vcl',
   Enum['file','malloc'] $storage_type       = 'file',
   Stdlib::AbsolutePath $storage_file        = '/var/lib/varnish/varnish_storage.bin',
   String $storage_size                      = '1G',
@@ -65,6 +65,7 @@ class varnish (
   Optional[String] $vcl_reload_cmd          = undef,
   String $vcl_reload_path                   = $::path,
   Array[String] $modules                    = [],
+  Optional[String] $init_cli                = undef,
 ) {
 
   if $package_ensure == 'present' {

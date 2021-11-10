@@ -46,6 +46,9 @@ DAEMON_OPTS="<% if scope['::varnish::params::service_provider'] == 'sysvinit' -%
              -p thread_pool_max=${VARNISH_MAX_THREADS} \
              -p thread_pool_timeout=${VARNISH_THREAD_TIMEOUT} \
 <% end -%>
+<% if scope['::varnish::init_cli'] -%>
+             -I <%= scope['::varnish::init_cli'] %> \
+<% end -%>
 <% scope['::varnish::runtime_params'].each do |k,v| -%>
              -p <%= k %>=<%= v %> \
 <% end -%>

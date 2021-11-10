@@ -40,6 +40,9 @@ ExecStart=/usr/sbin/varnishd <%= scope['::varnish::config::jail_opt'] %> \
   -p thread_pool_max=<%= scope['::varnish::max_threads'] %> \
   -p thread_pool_timeout=<%= scope['::varnish::thread_timeout'] %> \
 <% end -%>
+<% if scope['::varnish::init_cli'] -%>
+  -I <%= scope['::varnish::init_cli'] %> \
+<% end -%>
 <% scope['::varnish::runtime_params'].each do |k,v| -%>
   -p <%= k %>=<%= v %> \
 <% end -%>
