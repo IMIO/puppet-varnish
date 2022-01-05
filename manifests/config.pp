@@ -38,14 +38,14 @@ class varnish::config {
   concat {'/etc/varnish/backends.vcl':
     owner   => root,
     group   => root,
-    notify  => Service[$::varnish::service_name],
+    notify  => Exec['vcl_reload'],
     require => Package[$::varnish::package_name],
   }
 
   concat {'/etc/varnish/sites.vcl':
     owner   => root,
     group   => root,
-    notify  => Service[$::varnish::service_name],
+    notify  => Exec['vcl_reload'],
     require => Package[$::varnish::package_name],
   }
 

@@ -28,13 +28,13 @@ define varnish::backend (
       concat::fragment {$title:
         target  => '/etc/varnish/backends.vcl',
         content => template('varnish/backend.erb'),
-        notify  => Service[$::varnish::service_name],
+        notify  => Exec['vcl_reload'],
       }
     } else {
       concat::fragment {$title:
         target  => '/etc/varnish/backends.vcl',
         content => template('varnish/backend_simple.erb'),
-        notify  => Service[$::varnish::service_name],
+        notify  => Exec['vcl_reload'],
       }
     }
   }

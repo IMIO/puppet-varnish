@@ -49,7 +49,7 @@ define varnish::vclconfig ($backend, $vcl_config='default', $ensure='present',
       "/etc/varnish/projects/${project}/${name}.vcl":
         ensure  => $ensure,
         content => template("varnish/${vcl_config}_vcl_config.erb"),
-        notify  => Service[$::varnish::service_name],
+        notify  => Exec['vcl_reload'],
         require => [Package[$::varnish::package_name], File['/etc/varnish/sites']],
     }
 
@@ -58,7 +58,7 @@ define varnish::vclconfig ($backend, $vcl_config='default', $ensure='present',
         target  => "/etc/varnish/projects/${project}/sites.vcl",
         content => "include \"/etc/varnish/projects/${project}/${name}.vcl\";\n",
         order   => $order,
-        notify  => Service[$::varnish::service_name],
+        notify  => Exec['vcl_reload'],
         require => Package[$::varnish::package_name],
       }
     }
