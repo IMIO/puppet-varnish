@@ -45,10 +45,12 @@ class varnish::params {
           '6.1' => '/usr/share/varnish/varnishreload',
           '6.3' => '/usr/sbin/varnishreload',
           '6.5' => '/usr/sbin/varnishreload',
+          '7.4' => '/usr/sbin/varnishreload',
         }
       }
       else{
         $vcl_reload = $::varnish::version_major ? {
+          '7' => '/usr/sbin/varnishreload',
           '6' => '/usr/sbin/varnishreload',
           '5' => '/usr/share/varnish/reload-vcl -q',
           '4' => '/usr/share/varnish/reload-vcl -q',
