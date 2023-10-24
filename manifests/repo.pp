@@ -89,6 +89,7 @@ class varnish::repo {
       $os_lower        = downcase($::operatingsystem)
       $package_require = Exec['apt_update']
       $gpg_key_id      = "${::varnish::version_major}.${::varnish::version_minor}${::varnish::version_lts}" ? {
+        '7.4'    => '9D86454826BA74D76C4020828880E6CBA76CBB0B',
         '6.5'    => 'A487F9BE81D9DF5121488CFE1C7B4E9FF149D65B',
         '6.3'    => '920A8A7AA7120A8604BCCD294A42CD6EB810E55D',
         '6.2'    => 'B54813B54CA95257D3590B3F1B0096460868C7A9',
@@ -119,7 +120,6 @@ class varnish::repo {
       }
 
     }
-
     default: {
       fail("Unsupported repo osfamily: ${::osfamily}")
     }
