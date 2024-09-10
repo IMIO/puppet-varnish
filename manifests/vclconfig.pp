@@ -16,12 +16,7 @@
 define varnish::vclconfig ($backend, $vcl_config='default', $ensure='present',
   $aliases=[], $order='50', $project='iasmartweb4') {
 
-    if is_string($aliases) {
-      $alias_list = split($aliases, ',')
-    }
-    else {
-      $alias_list = $aliases
-    }
+    $alias_list = $aliases
     if $::environment == 'production' {
       $backend_filter = "resources{type='Varnish::Backend' and title='${::environment}-${backend}' and environment='production'}"
     } else {
